@@ -16,7 +16,9 @@ class NotesController < ApplicationController
   def create
     @note = current_user.notes.build(note_params)
     if @note.save
-      redirect_to @note, notice: 'Note was successfully created.'
+      openai_service = OpenaiService.new
+      @note.update(enhanced_content: openai_service.enhance_content(@note.content))
+      redirect_to @note, notice: 'Note was successfully created and enhanced.'
     else
       render :new
     end

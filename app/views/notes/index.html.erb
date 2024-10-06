@@ -1,0 +1,19 @@
+<h1>Notes#index</h1>
+<p>Find me in app/views/notes/index.html.erb</p>
+
+<%= link_to 'New Note', new_note_path %>
+<%= link_to 'All Notes', notes_path %>
+
+<% if @notes.any? %>
+  <% @notes.each do |note| %>
+    <div>
+      <h2><%= note.title %></h2>
+      <p><%= truncate(note.content, length: 100) %></p>
+      <%= link_to 'View', note_path(note) %>
+      <%= link_to 'Edit', edit_note_path(note) %>
+      <%= link_to 'Delete', note_path(note), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+  <% end %>
+<% else %>
+  <p>No notes available.</p>
+<% end %>

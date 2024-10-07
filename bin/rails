@@ -2,3 +2,6 @@
 APP_PATH = File.expand_path("../config/application", __dir__)
 require_relative "../config/boot"
 require "rails/commands"
+
+openai:
+  api_key: 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

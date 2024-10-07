@@ -3,7 +3,7 @@ class NotesController < ApplicationController
   before_action :set_note, only: [:show, :edit, :update, :destroy]
   
   def index
-    @notes = current_user.notes if current_user
+    @notes = current_user.notes
   end
 
   def show
@@ -16,9 +16,8 @@ class NotesController < ApplicationController
   def create
     @note = current_user.notes.build(note_params)
     if @note.save
-      openai_service = OpenaiService.new
-      @note.update(enhanced_content: openai_service.enhance_content(@note.content))
-      redirect_to @note, notice: 'Note was successfully created and enhanced.'
+      enhance_note_content if Rails.env.production?
+      redirect_to @note, notice: 'Note was successfully created.'
     else
       render :new
     end
@@ -43,10 +42,15 @@ class NotesController < ApplicationController
   private
 
   def set_note
-    @note = Note.find(params[:id])
+    @note = current_user.notes.find(params[:id])
   end
 
   def note_params
     params.require(:note).permit(:title, :content)
+  end
+
+  def enhance_note_content
+    openai_service = OpenaiService.new
+    @note.update(enhanced_content: openai_service.enhance_content(@note.content))
   end
 end

@@ -1,2 +1,5 @@
-<h1>Notes#new</h1>
-<p>Find me in app/views/notes/new.html.erb</p>
+<h1>New Note</h1>
+
+<%= render 'form', note: @note %>
+
+<%= link_to 'Back', notes_path %>

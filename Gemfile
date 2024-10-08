@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby '3.3.5'  
+
 gem "rails", "~> 7.2.1"
 gem "sprockets-rails"
 gem "pg", "~> 1.1"
@@ -10,7 +12,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem 'devise'
 gem 'ruby-openai'
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data"
 gem "bootsnap", require: false
 
 group :development, :test do
